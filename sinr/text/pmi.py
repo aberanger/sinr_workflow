@@ -51,7 +51,7 @@ def _logarithm_and_ppmi(exp_pmi, min_exp_pmi):
 def pmi(X, py=None, min_pmi=0, alpha=0.0, beta=1):
     """
 
-    :param X: word, word) sparse matrix
+    :param X: word, word) parse matrix
     :type X: Scipy.sparse.csr_matrix
     :param py: 1, word) shape, probability of context words. (Default value = None)
     :type py: numpy.ndarray
