@@ -38,7 +38,7 @@ def define_extensions(cythonize=False):
                       language='C++',
                       libraries=["stdc++"],
                       extra_link_args=compile_args,
-		      include_dirs=[numpy.get_include(), binding=True], # noqa
+		      include_dirs=[numpy.get_include()],
                       extra_compile_args=compile_args)
             ]
 
