@@ -49,8 +49,14 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">SINr Embeddings</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="sinr.html">SINr Core</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SINr Text</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#co-occurrence">Co-occurrence</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#co-occurrence-cython">Co-occurrence Cython</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sinr.text.cooccurrence">Co-occurrence</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sinr.text.cooccurrence.Cooccurrence"><code class="docutils literal notranslate"><span class="pre">Cooccurrence</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-sinr.text.cooccurrence_cython">Co-occurrence Cython</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#sinr.text.cooccurrence_cython.construct_cooccurrence_matrix"><code class="docutils literal notranslate"><span class="pre">construct_cooccurrence_matrix()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-sinr.text.pmi">PMI Filtering</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#sinr.text.pmi.pmi"><code class="docutils literal notranslate"><span class="pre">pmi()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#sinr.text.pmi.pmi_filter"><code class="docutils literal notranslate"><span class="pre">pmi_filter()</span></code></a></li>
@@ -98,11 +104,91 @@
              
   <section id="sinr-text">
 <h1>SINr Text<a class="headerlink" href="#sinr-text" title="Permalink to this heading"></a></h1>
-<section id="co-occurrence">
-<h2>Co-occurrence<a class="headerlink" href="#co-occurrence" title="Permalink to this heading"></a></h2>
+<section id="module-sinr.text.cooccurrence">
+<span id="co-occurrence"></span><h2>Co-occurrence<a class="headerlink" href="#module-sinr.text.cooccurrence" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="sinr.text.cooccurrence.Cooccurrence">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">sinr.text.cooccurrence.</span></span><span class="sig-name descname"><span class="pre">Cooccurrence</span></span><a class="headerlink" href="#sinr.text.cooccurrence.Cooccurrence" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for constructing a cooccurrence matrix
+from a corpus.</p>
+<p>A dictionnary mapping the vocabulary of the corpus in lexicographic order
+will be constructed as well as the cooccurrence matrix.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="sinr.text.cooccurrence.Cooccurrence.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">corpus</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sinr.text.cooccurrence.Cooccurrence.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Perform a pass through the corpus to construct
+the cooccurrence matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corpus</strong> (<em>list</em><em>[</em><em>list</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of lists of strings (words) from the corpus.</p></li>
+<li><p><strong>window</strong> (<em>int</em>) – The length of the (symmetric) context window used for cooccurrence, defaults to 2</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sinr.text.cooccurrence.Cooccurrence.load">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sinr.text.cooccurrence.Cooccurrence.load" title="Permalink to this definition"></a></dt>
+<dd><p>Load Cooccurrence object from pickle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Path to the pickle file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An instance of the :class: Cooccurrence.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SINr.cooccurrence.Cooccurrence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="sinr.text.cooccurrence.Cooccurrence.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#sinr.text.cooccurrence.Cooccurrence.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save cooccurrence object to a pickle file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – Output path to the filename of the pickle file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
-<section id="co-occurrence-cython">
-<h2>Co-occurrence Cython<a class="headerlink" href="#co-occurrence-cython" title="Permalink to this heading"></a></h2>
+<section id="module-sinr.text.cooccurrence_cython">
+<span id="co-occurrence-cython"></span><h2>Co-occurrence Cython<a class="headerlink" href="#module-sinr.text.cooccurrence_cython" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="sinr.text.cooccurrence_cython.construct_cooccurrence_matrix">
+<span class="sig-prename descclassname"><span class="pre">sinr.text.cooccurrence_cython.</span></span><span class="sig-name descname"><span class="pre">construct_cooccurrence_matrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sinr.text.cooccurrence_cython.construct_cooccurrence_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Construct the word-id dictionary and cooccurrence matrix for
+a given corpus, using a given window size.</p>
+<p>The dictionary is constructed by lexicographix order.
+The matrix accounts for the number of cooccurrences of words, no matter the
+order in which they appear in the corpus. Consequently, the cooccurrence
+matrix is upper triangular (undirected graph in SINr) .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>corpus</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – The sentences from the corpus.</p></li>
+<li><p><strong>dictionary</strong> (<em>dictionary: dict</em><em>[</em><em>str:int</em><em>]</em>) – A dictionary mapping of words to their ids in the vocabulary (in lexicographic order)</p></li>
+<li><p><strong>window_size</strong> (<em>int</em>) – The size of the symmetric moving window.</p></li>
+<li><p><strong>window_size</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The cooccurrence matrix built from the corpus.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>scipy.sparse.coo</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-sinr.text.pmi">
 <span id="pmi-filtering"></span><h2>PMI Filtering<a class="headerlink" href="#module-sinr.text.pmi" title="Permalink to this heading"></a></h2>
@@ -112,7 +198,7 @@
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>Scipy.sparse.csr_matrix</em>) – word, word) sparse matrix</p></li>
+<li><p><strong>X</strong> (<em>Scipy.sparse.csr_matrix</em>) – word, word) parse matrix</p></li>
 <li><p><strong>py</strong> (<em>numpy.ndarray</em>) – 1, word) shape, probability of context words. (Default value = None)</p></li>
 <li><p><strong>min_pmi</strong> (<em>int</em>) – Minimum value of PMI. all the values that smaller than min_pmi
 are reset to zero, defaults to 0</p></li>
