@@ -76,3 +76,5 @@ openpyxl = "^3.1.2"
 script = "build.py"
 generate-setup-file = false
 
+[tool.poetry.extras]
+docs = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-napoleon", "sphinx-tabs"]
