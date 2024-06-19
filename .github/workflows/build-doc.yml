@@ -38,8 +38,10 @@ jobs:
         run: poetry install --extras docs
       - name: Build documentation
         run: |
+          pip install sphinx
           cd docs/
-          poetry run sphinx-quickstart
+          rm -r *
+          sphinx-quickstart -p "SINr" -a 'Thibault Prouteau, Nicolas Dugué, Simon Guillot, Anthony Perez, Anna Béranger' -v '1.3.1' -r '1.3.1' -l en
           poetry run sphinx-build -b html source _build/html
       - name: Run ghp-import
         run: |
