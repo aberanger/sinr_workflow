@@ -5,7 +5,7 @@
 python -m sinr.tests.test_sinr_nfm
 """
 
-
+import pytest
 import unittest
 import pytest
 
